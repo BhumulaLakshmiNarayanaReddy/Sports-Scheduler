@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | Sports Scheduler</title>
+
+
+    <!-- Inter -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Material Symbols -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+        rel="stylesheet"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+<div class="app-shell">
+
+
+    <!-- =========================
+         MOBILE TOP BAR
+    ========================== -->
+
+    <header class="mobile-topbar">
+
+        <button
+            type="button"
+            class="mobile-menu-button"
+            id="menuButton"
+            aria-label="Open navigation"
+        >
+
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+
+        </button>
+
+
+        <div class="mobile-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            <span>
+                Sports Scheduler
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside
+        class="app-sidebar"
+        id="appSidebar"
+    >
+
+
+        <!-- Brand -->
+
+        <div class="sidebar-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+
+            <div class="brand-text">
+
+                <strong>
+                    Sports Scheduler
+                </strong>
+
+                <span>
+                    Session Management
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="sidebar-navigation">
+
+
+            <a
+                href="/dashboard"
+                class="sidebar-link active"
+            >
+
+                <span class="sidebar-link-icon">
+
+                    <span class="material-symbols-outlined">
+                        dashboard
+                    </span>
+
+                </span>
+
+                <span class="sidebar-link-text">
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="/sessions/create"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon">
+
+                    <span class="material-symbols-outlined">
+                        add_circle
+                    </span>
+
+                </span>
+
+                <span class="sidebar-link-text">
+                    Create Session
+                </span>
+
+            </a>
+
+
+            <a
+                href="/sessions/available"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon">
+
+                    <span class="material-symbols-outlined">
+                        event_available
+                    </span>
+
+                </span>
+
+                <span class="sidebar-link-text">
+                    Available Sessions
+                </span>
+
+            </a>
+
+
+            <a
+                href="/sessions/my"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon">
+
+                    <span class="material-symbols-outlined">
+                        event_note
+                    </span>
+
+                </span>
+
+                <span class="sidebar-link-text">
+                    My Created Sessions
+                </span>
+
+            </a>
+
+
+            <a
+                href="/sessions/joined"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon">
+
+                    <span class="material-symbols-outlined">
+                        groups
+                    </span>
+
+                </span>
+
+                <span class="sidebar-link-text">
+                    My Joined Sessions
+                </span>
+
+            </a>
+
+
+            <% if (role === "admin") { %>
+
+
+                <div class="sidebar-divider"></div>
+
+
+                <p class="sidebar-section-title">
+                    ADMINISTRATION
+                </p>
+
+
+                <a
+                    href="/admin/sports"
+                    class="sidebar-link"
+                >
+
+                    <span class="sidebar-link-icon">
+
+                        <span class="material-symbols-outlined">
+                            sports_basketball
+                        </span>
+
+                    </span>
+
+                    <span class="sidebar-link-text">
+                        Manage Sports
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="/admin/reports"
+                    class="sidebar-link"
+                >
+
+                    <span class="sidebar-link-icon">
+
+                        <span class="material-symbols-outlined">
+                            bar_chart
+                        </span>
+
+                    </span>
+
+                    <span class="sidebar-link-text">
+                        Reports
+                    </span>
+
+                </a>
+
+
+            <% } %>
+
+
+        </nav>
+
+
+        <!-- Sidebar bottom -->
+
+        <div class="sidebar-footer">
+
+            <a
+                href="/logout"
+                class="sidebar-link logout-link"
+            >
+
+                <span class="sidebar-link-icon">
+
+                    <span class="material-symbols-outlined">
+                        logout
+                    </span>
+
+                </span>
+
+                <span class="sidebar-link-text">
+                    Sign Out
+                </span>
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- Mobile overlay -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="app-main">
+
+
+        <!-- Header -->
+
+        <header class="dashboard-topbar">
+
+
+            <div class="dashboard-title">
+
+                <span class="dashboard-eyebrow">
+
+                    <%= role === "admin"
+                        ? "ADMINISTRATOR"
+                        : "PLAYER"
+                    %>
+
+                </span>
+
+
+                <h1>
+                    Dashboard
+                </h1>
+
+
+                <p>
+                    Manage your sports sessions from one place.
+                </p>
+
+            </div>
+
+
+            <!-- User -->
+
+            <div class="dashboard-user">
+
+                <div class="user-avatar">
+
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+
+                </div>
+
+
+                <div class="user-details">
+
+                    <strong>
+                        <%= name %>
+                    </strong>
+
+                    <span>
+                        <%= role === "admin"
+                            ? "Administrator"
+                            : "Player"
+                        %>
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =========================
+             WELCOME
+        ========================== -->
+
+        <section class="welcome-card">
+
+
+            <div class="welcome-content">
+
+                <span class="welcome-label">
+
+                    <span class="material-symbols-outlined">
+                        waving_hand
+                    </span>
+
+                    Welcome back
+
+                </span>
+
+
+                <h2>
+                    <%= name %>
+                </h2>
+
+
+                <p>
+                    Create a session, find a game to join,
+                    or manage your existing sports activities.
+                </p>
+
+            </div>
+
+
+            <a
+                href="/sessions/create"
+                class="primary-button"
+            >
+
+                <span class="material-symbols-outlined">
+                    add
+                </span>
+
+                Create Session
+
+            </a>
+
+
+        </section>
+
+
+        <!-- =========================
+             QUICK ACTIONS
+        ========================== -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-eyebrow">
+                        QUICK ACTIONS
+                    </span>
+
+                    <h2>
+                        What would you like to do?
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="action-grid">
+
+
+                <!-- Create -->
+
+                <a
+                    href="/sessions/create"
+                    class="dashboard-action-card"
+                >
+
+                    <div class="action-card-icon blue">
+
+                        <span class="material-symbols-outlined">
+                            add_circle
+                        </span>
+
+                    </div>
+
+
+                    <div class="action-card-content">
+
+                        <h3>
+                            Create Session
+                        </h3>
+
+                        <p>
+                            Organize a new sports session.
+                        </p>
+
+                    </div>
+
+
+                    <span class="material-symbols-outlined action-arrow">
+                        arrow_forward
+                    </span>
+
+                </a>
+
+
+                <!-- Available -->
+
+                <a
+                    href="/sessions/available"
+                    class="dashboard-action-card"
+                >
+
+                    <div class="action-card-icon green">
+
+                        <span class="material-symbols-outlined">
+                            event_available
+                        </span>
+
+                    </div>
+
+
+                    <div class="action-card-content">
+
+                        <h3>
+                            Available Sessions
+                        </h3>
+
+                        <p>
+                            Find a session and join other players.
+                        </p>
+
+                    </div>
+
+
+                    <span class="material-symbols-outlined action-arrow">
+                        arrow_forward
+                    </span>
+
+                </a>
+
+
+                <!-- My sessions -->
+
+                <a
+                    href="/sessions/my"
+                    class="dashboard-action-card"
+                >
+
+                    <div class="action-card-icon orange">
+
+                        <span class="material-symbols-outlined">
+                            event_note
+                        </span>
+
+                    </div>
+
+
+                    <div class="action-card-content">
+
+                        <h3>
+                            My Created Sessions
+                        </h3>
+
+                        <p>
+                            Manage sessions you created.
+                        </p>
+
+                    </div>
+
+
+                    <span class="material-symbols-outlined action-arrow">
+                        arrow_forward
+                    </span>
+
+                </a>
+
+
+                <!-- Joined -->
+
+                <a
+                    href="/sessions/joined"
+                    class="dashboard-action-card"
+                >
+
+                    <div class="action-card-icon purple">
+
+                        <span class="material-symbols-outlined">
+                            groups
+                        </span>
+
+                    </div>
+
+
+                    <div class="action-card-content">
+
+                        <h3>
+                            My Joined Sessions
+                        </h3>
+
+                        <p>
+                            View the sessions you joined.
+                        </p>
+
+                    </div>
+
+
+                    <span class="material-symbols-outlined action-arrow">
+                        arrow_forward
+                    </span>
+
+                </a>
+
+
+                <% if (role === "admin") { %>
+
+
+                    <!-- Manage Sports -->
+
+                    <a
+                        href="/admin/sports"
+                        class="dashboard-action-card"
+                    >
+
+                        <div class="action-card-icon blue">
+
+                            <span class="material-symbols-outlined">
+                                sports_basketball
+                            </span>
+
+                        </div>
+
+
+                        <div class="action-card-content">
+
+                            <h3>
+                                Manage Sports
+                            </h3>
+
+                            <p>
+                                Add and edit available sports.
+                            </p>
+
+                        </div>
+
+
+                        <span class="material-symbols-outlined action-arrow">
+                            arrow_forward
+                        </span>
+
+                    </a>
+
+
+                    <!-- Reports -->
+
+                    <a
+                        href="/admin/reports"
+                        class="dashboard-action-card"
+                    >
+
+                        <div class="action-card-icon green">
+
+                            <span class="material-symbols-outlined">
+                                bar_chart
+                            </span>
+
+                        </div>
+
+
+                        <div class="action-card-content">
+
+                            <h3>
+                                Reports
+                            </h3>
+
+                            <p>
+                                View session and sport activity.
+                            </p>
+
+                        </div>
+
+
+                        <span class="material-symbols-outlined action-arrow">
+                            arrow_forward
+                        </span>
+
+                    </a>
+
+
+                <% } %>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             INFORMATION
+        ========================== -->
+
+        <section class="dashboard-info">
+
+
+            <div class="dashboard-info-icon">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Keep your sports schedule organized
+                </h3>
+
+                <p>
+                    Create sessions, join available games,
+                    and manage your upcoming activities
+                    from one place.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+<!-- =========================
+     MOBILE MENU SCRIPT
+========================== -->
+
+<script>
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const sidebar =
+        document.getElementById("appSidebar");
+
+    const overlay =
+        document.getElementById("sidebarOverlay");
+
+
+    function openSidebar() {
+
+        sidebar.classList.add("mobile-open");
+
+        overlay.classList.add("visible");
+
+        document.body.classList.add("menu-open");
+
+    }
+
+
+    function closeSidebar() {
+
+        sidebar.classList.remove("mobile-open");
+
+        overlay.classList.remove("visible");
+
+        document.body.classList.remove("menu-open");
+
+    }
+
+
+    menuButton.addEventListener(
+        "click",
+        openSidebar
+    );
+
+
+    overlay.addEventListener(
+        "click",
+        closeSidebar
+    );
+
+
+    document
+        .querySelectorAll(".sidebar-link")
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                closeSidebar
+            );
+
+        });
+
+</script>
+
+
+</body>
+
+</html>

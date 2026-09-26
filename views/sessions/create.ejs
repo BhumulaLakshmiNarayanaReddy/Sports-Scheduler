@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Session | Sports Scheduler</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app-theme.css">
+
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <div class="mobile-topbar">
+
+        <button
+            class="mobile-menu-button"
+            id="menuButton"
+            type="button"
+        >
+
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+
+        </button>
+
+        <div class="mobile-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            Sports Scheduler
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <aside
+        class="app-sidebar"
+        id="appSidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            <span class="brand-text">
+                Sports Scheduler
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-navigation">
+
+            <a
+                href="/dashboard"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    dashboard
+                </span>
+
+                <span class="sidebar-link-text">
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="/sessions/create"
+                class="sidebar-link active"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    add_circle
+                </span>
+
+                <span class="sidebar-link-text">
+                    Create Session
+                </span>
+
+            </a>
+
+
+            <a
+                href="/sessions/available"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    search
+                </span>
+
+                <span class="sidebar-link-text">
+                    Available Sessions
+                </span>
+
+            </a>
+
+
+            <a
+                href="/sessions/my"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    event
+                </span>
+
+                <span class="sidebar-link-text">
+                    My Sessions
+                </span>
+
+            </a>
+
+
+            <a
+                href="/sessions/joined"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    group
+                </span>
+
+                <span class="sidebar-link-text">
+                    Joined Sessions
+                </span>
+
+            </a>
+
+
+            <% if (typeof role !== "undefined" && role === "admin") { %>
+
+                <div class="sidebar-divider"></div>
+
+                <div class="sidebar-section-title">
+                    Administration
+                </div>
+
+                <a
+                    href="/admin/sports"
+                    class="sidebar-link"
+                >
+
+                    <span class="sidebar-link-icon material-symbols-outlined">
+                        sports
+                    </span>
+
+                    <span class="sidebar-link-text">
+                        Manage Sports
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="/admin/reports"
+                    class="sidebar-link"
+                >
+
+                    <span class="sidebar-link-icon material-symbols-outlined">
+                        analytics
+                    </span>
+
+                    <span class="sidebar-link-text">
+                        Reports
+                    </span>
+
+                </a>
+
+            <% } %>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <a
+                href="/logout"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    logout
+                </span>
+
+                <span class="sidebar-link-text">
+                    Sign Out
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="app-main">
+
+        <div class="page-header">
+
+            <div>
+
+                <p class="page-eyebrow">
+                    SESSION SCHEDULER
+                </p>
+
+                <h1>
+                    Create Sport Session
+                </h1>
+
+                <p class="page-description">
+                    Set up a new sports session and invite other players to join.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <% if (error) { %>
+
+            <div class="error-message">
+
+                <span class="material-symbols-outlined">
+                    error
+                </span>
+
+                <span>
+                    <%= error %>
+                </span>
+
+            </div>
+
+        <% } %>
+
+
+        <div class="create-session-layout">
+
+            <section class="form-card">
+
+                <div class="card-heading">
+
+                    <div class="action-icon blue">
+
+                        <span class="material-symbols-outlined">
+                            edit_calendar
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Session Information
+                        </h2>
+
+                        <p>
+                            Enter the details for your session.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    action="/sessions/create"
+                    method="POST"
+                    class="session-form"
+                >
+
+                    <div class="form-group">
+
+                        <label for="sport">
+                            Sport
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <select
+                                id="sport"
+                                name="sport"
+                                required
+                            >
+
+                                <option value="">
+                                    Select a sport
+                                </option>
+
+                                <% sports.forEach(sport => { %>
+
+                                    <option value="<%= sport._id %>">
+                                        <%= sport.name %>
+                                    </option>
+
+                                <% }) %>
+
+                            </select>
+
+                            <span class="material-symbols-outlined input-icon">
+                                sports
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="additionalPlayersNeeded">
+                            Additional Players Needed
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="number"
+                                id="additionalPlayersNeeded"
+                                name="additionalPlayersNeeded"
+                                min="0"
+                                value="1"
+                                required
+                            >
+
+                            <span class="material-symbols-outlined input-icon">
+                                group_add
+                            </span>
+
+                        </div>
+
+                        <small class="form-help">
+                            Number of players who can join your session.
+                        </small>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="dateTime">
+                            Date & Time
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="datetime-local"
+                                id="dateTime"
+                                name="dateTime"
+                                required
+                            >
+
+                            <span class="material-symbols-outlined input-icon">
+                                calendar_month
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="venue">
+                            Venue
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="text"
+                                id="venue"
+                                name="venue"
+                                placeholder="Example: College Ground"
+                                required
+                            >
+
+                            <span class="material-symbols-outlined input-icon">
+                                location_on
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <a
+                            href="/dashboard"
+                            class="secondary-button"
+                        >
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="primary-button"
+                        >
+
+                            <span class="material-symbols-outlined">
+                                add_circle
+                            </span>
+
+                            Create Session
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <aside class="session-preview-card">
+
+                <div class="preview-header">
+
+                    <span class="material-symbols-outlined">
+                        lightbulb
+                    </span>
+
+                    <h3>
+                        Session Guidelines
+                    </h3>
+
+                </div>
+
+
+                <div class="preview-item">
+
+                    <span class="material-symbols-outlined">
+                        check_circle
+                    </span>
+
+                    <p>
+                        Choose a sport from the available sports.
+                    </p>
+
+                </div>
+
+
+                <div class="preview-item">
+
+                    <span class="material-symbols-outlined">
+                        check_circle
+                    </span>
+
+                    <p>
+                        Select a future date and time.
+                    </p>
+
+                </div>
+
+
+                <div class="preview-item">
+
+                    <span class="material-symbols-outlined">
+                        check_circle
+                    </span>
+
+                    <p>
+                        Add the venue where the session will take place.
+                    </p>
+
+                </div>
+
+
+                <div class="preview-item">
+
+                    <span class="material-symbols-outlined">
+                        check_circle
+                    </span>
+
+                    <p>
+                        Other players can join until all available slots are filled.
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    const menuButton = document.getElementById("menuButton");
+    const appSidebar = document.getElementById("appSidebar");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+    menuButton.addEventListener("click", () => {
+
+        appSidebar.classList.toggle("mobile-open");
+        sidebarOverlay.classList.toggle("visible");
+
+    });
+
+    sidebarOverlay.addEventListener("click", () => {
+
+        appSidebar.classList.remove("mobile-open");
+        sidebarOverlay.classList.remove("visible");
+
+    });
+
+</script>
+
+</body>
+
+</html>

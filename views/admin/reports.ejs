@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Reports | Sports Scheduler</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app-theme.css">
+
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <div class="mobile-topbar">
+
+        <button
+            class="mobile-menu-button"
+            id="menuButton"
+            type="button"
+        >
+
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+
+        </button>
+
+        <div class="mobile-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            Sports Scheduler
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <aside
+        class="app-sidebar"
+        id="appSidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            <span class="brand-text">
+                Sports Scheduler
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-navigation">
+
+            <a href="/dashboard" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    dashboard
+                </span>
+
+                <span class="sidebar-link-text">
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/create" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    add_circle
+                </span>
+
+                <span class="sidebar-link-text">
+                    Create Session
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/available" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    search
+                </span>
+
+                <span class="sidebar-link-text">
+                    Available Sessions
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/my" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    event
+                </span>
+
+                <span class="sidebar-link-text">
+                    My Sessions
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/joined" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    group
+                </span>
+
+                <span class="sidebar-link-text">
+                    Joined Sessions
+                </span>
+
+            </a>
+
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-section-title">
+                Administration
+            </div>
+
+
+            <a href="/admin/sports" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    sports
+                </span>
+
+                <span class="sidebar-link-text">
+                    Manage Sports
+                </span>
+
+            </a>
+
+
+            <a
+                href="/admin/reports"
+                class="sidebar-link active"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    analytics
+                </span>
+
+                <span class="sidebar-link-text">
+                    Reports
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <a href="/logout" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    logout
+                </span>
+
+                <span class="sidebar-link-text">
+                    Sign Out
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="app-main">
+
+        <div class="page-header">
+
+            <div>
+
+                <p class="page-eyebrow">
+                    ADMINISTRATION
+                </p>
+
+                <h1>
+                    Reports
+                </h1>
+
+                <p class="page-description">
+                    View session activity and sport popularity for a selected period.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <section class="content-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Report Period
+                    </h2>
+
+                    <p>
+                        Select the start and end dates for the report.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <% if (error) { %>
+
+                <div class="alert error-alert">
+                    <%= error %>
+                </div>
+
+            <% } %>
+
+
+            <form
+                action="/admin/reports"
+                method="GET"
+                class="report-filter"
+            >
+
+                <div class="form-group">
+
+                    <label for="startDate">
+                        Start Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="startDate"
+                        name="startDate"
+                        value="<%= startDate %>"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="endDate">
+                        End Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="endDate"
+                        name="endDate"
+                        value="<%= endDate %>"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+
+                    <span class="material-symbols-outlined">
+                        analytics
+                    </span>
+
+                    Generate Report
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <% if (report) { %>
+
+            <section class="report-summary-grid">
+
+                <div class="report-stat-card">
+
+                    <div class="report-stat-icon">
+
+                        <span class="material-symbols-outlined">
+                            event
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Sessions Played
+                        </p>
+
+                        <h2>
+                            <%= report.totalSessions %>
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="report-stat-card">
+
+                    <div class="report-stat-icon">
+
+                        <span class="material-symbols-outlined">
+                            category
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Sports Used
+                        </p>
+
+                        <h2>
+                            <%= Object.keys(report.sportCounts).length %>
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="content-card">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+                            Sport Popularity
+                        </h2>
+
+                        <p>
+                            Number of sessions created for each sport.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <% const sportNames = Object.keys(report.sportCounts); %>
+
+
+                <% if (sportNames.length === 0) { %>
+
+                    <div class="empty-state">
+
+                        <span class="material-symbols-outlined">
+                            query_stats
+                        </span>
+
+                        <h3>
+                            No session data
+                        </h3>
+
+                        <p>
+                            There are no sessions in the selected period.
+                        </p>
+
+                    </div>
+
+                <% } else { %>
+
+                    <div class="report-list">
+
+                        <% sportNames.forEach(sportName => { %>
+
+                            <div class="report-row">
+
+                                <div class="report-row-info">
+
+                                    <div class="sport-icon">
+
+                                        <span class="material-symbols-outlined">
+                                            sports
+                                        </span>
+
+                                    </div>
+
+                                    <div>
+
+                                        <h3>
+                                            <%= sportName %>
+                                        </h3>
+
+                                        <p>
+                                            Sessions played
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="report-count">
+
+                                    <strong>
+                                        <%= report.sportCounts[sportName] %>
+                                    </strong>
+
+                                    <span>
+                                        sessions
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        <% }) %>
+
+                    </div>
+
+                <% } %>
+
+            </section>
+
+
+        <% } else { %>
+
+            <section class="empty-state">
+
+                <span class="material-symbols-outlined">
+                    analytics
+                </span>
+
+                <h2>
+                    Generate a Report
+                </h2>
+
+                <p>
+                    Select a date range above to view session activity and sport popularity.
+                </p>
+
+            </section>
+
+        <% } %>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    const menuButton = document.getElementById("menuButton");
+    const appSidebar = document.getElementById("appSidebar");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+    menuButton.addEventListener("click", () => {
+
+        appSidebar.classList.toggle("mobile-open");
+        sidebarOverlay.classList.toggle("visible");
+
+    });
+
+    sidebarOverlay.addEventListener("click", () => {
+
+        appSidebar.classList.remove("mobile-open");
+        sidebarOverlay.classList.remove("visible");
+
+    });
+
+</script>
+
+</body>
+
+</html>

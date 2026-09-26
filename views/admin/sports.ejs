@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Manage Sports | Sports Scheduler</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app-theme.css">
+
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <div class="mobile-topbar">
+
+        <button
+            class="mobile-menu-button"
+            id="menuButton"
+            type="button"
+        >
+
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+
+        </button>
+
+        <div class="mobile-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            Sports Scheduler
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <aside
+        class="app-sidebar"
+        id="appSidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            <span class="brand-text">
+                Sports Scheduler
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-navigation">
+
+            <a href="/dashboard" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    dashboard
+                </span>
+
+                <span class="sidebar-link-text">
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/create" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    add_circle
+                </span>
+
+                <span class="sidebar-link-text">
+                    Create Session
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/available" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    search
+                </span>
+
+                <span class="sidebar-link-text">
+                    Available Sessions
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/my" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    event
+                </span>
+
+                <span class="sidebar-link-text">
+                    My Sessions
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/joined" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    group
+                </span>
+
+                <span class="sidebar-link-text">
+                    Joined Sessions
+                </span>
+
+            </a>
+
+
+            <div class="sidebar-divider"></div>
+
+            <div class="sidebar-section-title">
+                Administration
+            </div>
+
+
+            <a
+                href="/admin/sports"
+                class="sidebar-link active"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    sports
+                </span>
+
+                <span class="sidebar-link-text">
+                    Manage Sports
+                </span>
+
+            </a>
+
+
+            <a
+                href="/admin/reports"
+                class="sidebar-link"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    analytics
+                </span>
+
+                <span class="sidebar-link-text">
+                    Reports
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <a href="/logout" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    logout
+                </span>
+
+                <span class="sidebar-link-text">
+                    Sign Out
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="app-main">
+
+        <div class="page-header">
+
+            <div>
+
+                <p class="page-eyebrow">
+                    ADMINISTRATION
+                </p>
+
+                <h1>
+                    Manage Sports
+                </h1>
+
+                <p class="page-description">
+                    Create and manage the sports available for scheduling.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <section class="content-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Add a Sport
+                    </h2>
+
+                    <p>
+                        Add a sport that players can select when creating sessions.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <% if (error) { %>
+
+                <div class="alert error-alert">
+                    <%= error %>
+                </div>
+
+            <% } %>
+
+
+            <% if (success) { %>
+
+                <div class="alert success-alert">
+                    <%= success %>
+                </div>
+
+            <% } %>
+
+
+            <form
+                action="/admin/sports"
+                method="POST"
+                class="inline-form"
+            >
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Sport Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="e.g. Cricket"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+
+                    <span class="material-symbols-outlined">
+                        add_circle
+                    </span>
+
+                    Add Sport
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <section class="content-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Available Sports
+                    </h2>
+
+                    <p>
+                        Sports currently available in the scheduler.
+                    </p>
+
+                </div>
+
+                <span class="count-badge">
+                    <%= sports.length %>
+                </span>
+
+            </div>
+
+
+            <% if (sports.length === 0) { %>
+
+                <div class="empty-state">
+
+                    <span class="material-symbols-outlined">
+                        sports
+                    </span>
+
+                    <h3>
+                        No sports added
+                    </h3>
+
+                    <p>
+                        Add your first sport using the form above.
+                    </p>
+
+                </div>
+
+            <% } else { %>
+
+                <div class="sports-list">
+
+                    <% sports.forEach(sport => { %>
+
+                        <div class="sport-row">
+
+                            <div class="sport-row-info">
+
+                                <div class="sport-icon">
+
+                                    <span class="material-symbols-outlined">
+                                        sports
+                                    </span>
+
+                                </div>
+
+
+                                <div>
+
+                                    <h3>
+                                        <%= sport.name %>
+                                    </h3>
+
+                                    <p>
+                                        Added
+                                        <%= new Date(sport.createdAt).toLocaleDateString() %>
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <form
+                                action="/admin/sports/<%= sport._id %>/edit"
+                                method="POST"
+                                class="edit-sport-form"
+                            >
+
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value="<%= sport.name %>"
+                                    required
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="secondary-button"
+                                >
+
+                                    <span class="material-symbols-outlined">
+                                        edit
+                                    </span>
+
+                                    Save
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    <% }) %>
+
+                </div>
+
+            <% } %>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    const menuButton = document.getElementById("menuButton");
+    const appSidebar = document.getElementById("appSidebar");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+    menuButton.addEventListener("click", () => {
+
+        appSidebar.classList.toggle("mobile-open");
+        sidebarOverlay.classList.toggle("visible");
+
+    });
+
+    sidebarOverlay.addEventListener("click", () => {
+
+        appSidebar.classList.remove("mobile-open");
+        sidebarOverlay.classList.remove("visible");
+
+    });
+
+</script>
+
+</body>
+
+</html>

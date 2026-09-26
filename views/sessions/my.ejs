@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Sessions | Sports Scheduler</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app-theme.css">
+
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <div class="mobile-topbar">
+
+        <button
+            class="mobile-menu-button"
+            id="menuButton"
+            type="button"
+        >
+
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+
+        </button>
+
+        <div class="mobile-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            Sports Scheduler
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+    ></div>
+
+
+    <aside
+        class="app-sidebar"
+        id="appSidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <div class="brand-mark">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            <span class="brand-text">
+                Sports Scheduler
+            </span>
+
+        </div>
+
+
+        <nav class="sidebar-navigation">
+
+            <a href="/dashboard" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    dashboard
+                </span>
+
+                <span class="sidebar-link-text">
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/create" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    add_circle
+                </span>
+
+                <span class="sidebar-link-text">
+                    Create Session
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/available" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    search
+                </span>
+
+                <span class="sidebar-link-text">
+                    Available Sessions
+                </span>
+
+            </a>
+
+
+            <a
+                href="/sessions/my"
+                class="sidebar-link active"
+            >
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    event
+                </span>
+
+                <span class="sidebar-link-text">
+                    My Sessions
+                </span>
+
+            </a>
+
+
+            <a href="/sessions/joined" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    group
+                </span>
+
+                <span class="sidebar-link-text">
+                    Joined Sessions
+                </span>
+
+            </a>
+
+
+            <% if (typeof role !== "undefined" && role === "admin") { %>
+
+                <div class="sidebar-divider"></div>
+
+                <div class="sidebar-section-title">
+                    Administration
+                </div>
+
+                <a href="/admin/sports" class="sidebar-link">
+
+                    <span class="sidebar-link-icon material-symbols-outlined">
+                        sports
+                    </span>
+
+                    <span class="sidebar-link-text">
+                        Manage Sports
+                    </span>
+
+                </a>
+
+
+                <a href="/admin/reports" class="sidebar-link">
+
+                    <span class="sidebar-link-icon material-symbols-outlined">
+                        analytics
+                    </span>
+
+                    <span class="sidebar-link-text">
+                        Reports
+                    </span>
+
+                </a>
+
+            <% } %>
+
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <a href="/logout" class="sidebar-link">
+
+                <span class="sidebar-link-icon material-symbols-outlined">
+                    logout
+                </span>
+
+                <span class="sidebar-link-text">
+                    Sign Out
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="app-main">
+
+        <div class="page-header">
+
+            <div>
+
+                <p class="page-eyebrow">
+                    SESSION MANAGEMENT
+                </p>
+
+                <h1>
+                    My Sessions
+                </h1>
+
+                <p class="page-description">
+                    Sessions you have created and manage.
+                </p>
+
+            </div>
+
+
+            <a
+                href="/sessions/create"
+                class="primary-button"
+            >
+
+                <span class="material-symbols-outlined">
+                    add_circle
+                </span>
+
+                Create Session
+
+            </a>
+
+        </div>
+
+
+        <% if (sessions.length === 0) { %>
+
+            <section class="empty-state">
+
+                <span class="material-symbols-outlined">
+                    event_busy
+                </span>
+
+                <h2>
+                    No sessions created yet
+                </h2>
+
+                <p>
+                    Create your first sports session and invite other players.
+                </p>
+
+                <a
+                    href="/sessions/create"
+                    class="primary-button"
+                >
+                    Create Session
+                </a>
+
+            </section>
+
+        <% } else { %>
+
+            <div class="session-grid">
+
+                <% sessions.forEach(session => { %>
+
+                    <article class="session-card">
+
+                        <div class="session-card-top">
+
+                            <div class="sport-icon">
+
+                                <span class="material-symbols-outlined">
+                                    sports
+                                </span>
+
+                            </div>
+
+
+                            <span class="status-badge <%= session.status %>">
+                                <%= session.status %>
+                            </span>
+
+                        </div>
+
+
+                        <span class="session-category">
+                            CREATED SESSION
+                        </span>
+
+
+                        <h2>
+                            <%= session.sport.name %>
+                        </h2>
+
+
+                        <div class="session-info">
+
+                            <div>
+
+                                <span class="material-symbols-outlined">
+                                    calendar_month
+                                </span>
+
+                                <span>
+                                    <%= new Date(session.dateTime).toLocaleDateString() %>
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="material-symbols-outlined">
+                                    schedule
+                                </span>
+
+                                <span>
+                                    <%= new Date(session.dateTime).toLocaleTimeString([], {
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                    }) %>
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="material-symbols-outlined">
+                                    location_on
+                                </span>
+
+                                <span>
+                                    <%= session.venue %>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="session-capacity">
+
+                            <div class="capacity-header">
+
+                                <span>
+                                    Players Joined
+                                </span>
+
+                                <strong>
+                                    <%= session.joinedPlayers.length %>
+                                    /
+                                    <%= session.additionalPlayersNeeded %>
+                                </strong>
+
+                            </div>
+
+
+                            <div class="capacity-bar">
+
+                                <div
+                                    class="capacity-fill"
+                                    
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+
+                        <% if (session.status === "cancelled") { %>
+
+                            <div class="cancelled-message">
+
+                                <strong>
+                                    Session Cancelled
+                                </strong>
+
+                                <p>
+                                    <%= session.cancellationReason %>
+                                </p>
+
+                            </div>
+
+                        <% } %>
+
+
+                        <div class="session-card-actions">
+
+                            <a
+                                href="/sessions/<%= session._id %>"
+                                class="secondary-button"
+                            >
+                                View Details
+                            </a>
+
+
+                            <% if (session.status === "active") { %>
+
+                                <form
+                                    action="/sessions/<%= session._id %>/cancel"
+                                    method="POST"
+                                >
+
+                                    <input
+                                        type="text"
+                                        name="cancellationReason"
+                                        placeholder="Cancellation reason"
+                                        required
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="danger-button"
+                                        onclick="return confirm('Are you sure you want to cancel this session?')"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </form>
+
+                            <% } %>
+
+                        </div>
+
+                    </article>
+
+                <% }) %>
+
+            </div>
+
+        <% } %>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    const menuButton = document.getElementById("menuButton");
+    const appSidebar = document.getElementById("appSidebar");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+    menuButton.addEventListener("click", () => {
+
+        appSidebar.classList.toggle("mobile-open");
+        sidebarOverlay.classList.toggle("visible");
+
+    });
+
+    sidebarOverlay.addEventListener("click", () => {
+
+        appSidebar.classList.remove("mobile-open");
+        sidebarOverlay.classList.remove("visible");
+
+    });
+
+</script>
+
+</body>
+
+</html>

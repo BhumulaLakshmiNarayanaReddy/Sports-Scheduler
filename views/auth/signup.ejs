@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Account | Sports Scheduler</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/app-theme.css">
+
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-container">
+
+        <div class="auth-brand">
+
+            <div class="brand-icon">
+
+                <span class="material-symbols-outlined">
+                    sports
+                </span>
+
+            </div>
+
+            <span class="brand-name">
+                Sports Scheduler
+            </span>
+
+        </div>
+
+
+        <main class="auth-card">
+
+            <div class="auth-heading">
+
+                <p class="page-eyebrow">
+                    SPORTS SCHEDULER
+                </p>
+
+                <h1>
+                    Create your account
+                </h1>
+
+                <p>
+                    Join Sports Scheduler and start organizing your sports sessions.
+                </p>
+
+            </div>
+
+
+            <% if (error) { %>
+
+                <div class="error-message">
+
+                    <span class="material-symbols-outlined">
+                        error
+                    </span>
+
+                    <span>
+                        <%= error %>
+                    </span>
+
+                </div>
+
+            <% } %>
+
+
+            <form
+                action="/signup"
+                method="POST"
+                class="auth-form"
+            >
+
+                <div class="form-group">
+
+                    <label for="role">
+                        Account Type
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <select
+                            id="role"
+                            name="role"
+                            required
+                        >
+
+                            <option value="player">
+                                Player
+                            </option>
+
+                            <option value="admin">
+                                Administrator
+                            </option>
+
+                        </select>
+
+                        <span class="material-symbols-outlined input-icon">
+                            person
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                        <span class="material-symbols-outlined input-icon">
+                            person
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                        <span class="material-symbols-outlined input-icon">
+                            mail
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Minimum 6 characters"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword()"
+                            aria-label="Show or hide password"
+                        >
+
+                            <span
+                                class="material-symbols-outlined"
+                                id="eye-icon"
+                            >
+                                visibility
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                    <small class="form-help">
+                        Password must contain at least 6 characters.
+                    </small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button auth-submit"
+                >
+
+                    <span>
+                        Create Account
+                    </span>
+
+                    <span class="material-symbols-outlined">
+                        arrow_forward
+                    </span>
+
+                </button>
+
+            </form>
+
+
+            <div class="auth-footer">
+
+                <p>
+                    Already have an account?
+
+                    <a href="/login">
+                        Sign In
+                    </a>
+                </p>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+        function togglePassword() {
+
+            const passwordInput =
+                document.getElementById("password");
+
+            const eyeIcon =
+                document.getElementById("eye-icon");
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+
+                eyeIcon.textContent = "visibility_off";
+
+            } else {
+
+                passwordInput.type = "password";
+
+                eyeIcon.textContent = "visibility";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
